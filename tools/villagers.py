@@ -109,11 +109,12 @@ class Char:
         pats = {
             # rows top->bottom, columns outer->inner
             'adult': ['KK', 'ED', 'ED'],
+            'small': ['KK', 'ID', 'ID'],
             'soft': ['KKK', 'IWD', 'IDD', 'LLI'],
             'kid': ['KKK', 'DWD', 'IDI', 'LLL'],
         }
         pat = pats[eye]
-        top = eye_top if eye_top is not None else hy + (6 if eye == 'adult' else 7)
+        top = eye_top if eye_top is not None else hy + (6 if eye in ('adult', 'small') else 7)
         if self.kind == 'kid' and eye_top is None:
             top = hy + 6
         cmap = {'K': 'lash', 'E': 'eye_white', 'D': 'pupil', 'I': 'iris', 'L': 'iris_lt', 'W': 'hilite'}
@@ -399,12 +400,9 @@ def villager_child_a():
     m.paint(-1, T - 2, 2, 'skin', 0)
     m.paint(0, T - 2, 2, 'skin', 0)
     c.belt(L + 3)
-    c.face('kid', blush=True, mouth='.MM.')
-    my = c.mouth_y
-    m.paint(-2, my + 1, 5, 'mouth', 0)
-    m.paint(1, my + 1, 5, 'mouth', 0)
+    c.face('small', mouth='')
     for x in (-6, -4, 3, 5):
-        m.paint(x, my + 2, 5, 'freckle', 0)
+        m.paint(x, c.mouth_y + 1, 5, 'freckle', 0)
     c.hair(side_bottom=6, back_bottom=2,
            bangs=[3, 3, 4, 3, 2, 3, 4, 2, 3, 4, 3, 2, 3, 4, 3, 3])
     # spiky top
@@ -446,7 +444,7 @@ def villager_child_b():
     c.belt(L + 3, 'ribbon', 'ribbon')
     m.put(-2, L + 3, 3, 'ribbon', 'Spine', 0)
     m.put(1, L + 3, 3, 'ribbon', 'Spine', 0)
-    c.face('kid', blush=True, mouth='MM', lashes=True)
+    c.face('small', mouth='')
     c.hair(side_bottom=3, back_bottom=0,
            bangs=[5, 4, 3, 3, 4, 3, 3, 2, 2, 3, 3, 4, 3, 3, 4, 5])
     # pigtails
@@ -488,7 +486,7 @@ def villager_woman_a():
     m.pbox(-3, 3, T - 1, T, -3, 3, 'collar')
     m.pbox(-tw, tw, T - 1, T, 2, 3, 'collar')
     c.belt(L + 3)
-    c.face('soft', blush=True, mouth='MM', lashes=True)
+    c.face('small', mouth='')
     c.hair(side_bottom=2, back_bottom=-1,
            bangs=[6, 5, 3, 2, 2, 3, 2, 2, 2, 2, 3, 2, 2, 3, 5, 6])
     # bun
@@ -523,7 +521,7 @@ def villager_woman_b():
         m.paint(-1, y, 3, 'trim', 0)
         m.paint(0, y, 3, 'trim', 0)
     c.belt(L + 3, 'belt')
-    c.face('soft', blush=True, mouth='MM', lashes=True)
+    c.face('small', mouth='')
     c.hair(side_bottom=3, back_bottom=0,
            bangs=[4, 3, 2, 2, 3, 2, 2, 3, 3, 2, 2, 3, 2, 2, 3, 4])
     # headscarf over the top of the head
